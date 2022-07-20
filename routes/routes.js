@@ -14,7 +14,7 @@ const routes = [
     {
         path: "/",
         handler: (req,res)=>{
-            res.send("i am main home page")
+           res.render("pages/home")
         }
     }
 ]
