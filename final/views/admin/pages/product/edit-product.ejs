@@ -1,0 +1,89 @@
+<%- include('../../partials/header.ejs') %> 
+
+   
+<%- include('../../partials/sidebar.ejs') %> 
+
+        <div class="container-fluid">
+            <div class="container py-5">
+                <h2 class="text-warning text-center">Edit Product</h2>
+                <hr>
+
+                <div class="add-product-form  w-100 p-4 d-flex justify-content-center pb-4">
+                    <form action="/admin/products/edit-product" method="post" enctype="multipart/form-data">
+                        <input type="text" name="id" name="<%= product[0].id %>" value="<%= product[0].id %>"  hidden>
+                        <!-- Name input -->
+                        <div class="form-outline mb-4">
+                            <input name="product_name" value="<%= product[0].product_name %>" type="text" id="form4Example1" class="form-control" />
+                            <label class="form-label" for="form4Example1">Product Name</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input name="slug"  type="text" id="d"  class="form-control" value="<%= product[0].slug? product[0].slug : '' %>"/>
+                            <label class="form-label" for="d">Link</label>
+                          </div>
+                        
+                        <div class="mb-4">
+                            <script>
+                                function update() {
+                                    var d = document.getElementById('country');
+                                    var dText = d.options[d.selectedIndex].text;
+                                    document.getElementById('result').value = dText
+                                }
+                            </script>
+
+                            <select id="country" class="py-2 px-4" onchange="update();"
+                                style="width: 100%; outline: black">
+                                <option class="py-2 px-5" value=" none">Category</option>
+
+                                <% if(categories[0].length==0){ %>
+                                    <option class="py-2 px-5">No category Found</option>
+                                    <% }else{ %>
+                                        <% for(let cat of categories){ %>
+                                            <option class="py-2 px-5" <%= product[0].category === cat.category ? "selected" : "" %>  value="<%=cat.category %>">
+                                                <%= cat.category %>
+                                            </option>
+                                    <% } %>
+                                        <% } %>
+                            </select>
+                            <input id="result" name="category"  value="<%=product[0].category %>" class="d-none">
+
+                        </div>
+                        <!-- old price input -->
+                        <div class="form-outline mb-4">
+                            <input name="old_price" value="<%= product[0].old_price %>" type="number" id="form4Example2" class="form-control" />
+                            <label class="form-label" for="form4Example2">Old Price</label>
+                        </div>
+
+                        <!-- new price input -->
+                        <div class="form-outline mb-4">
+                            <input name="new_price" value="<%= product[0].new_price %>" type="number" id="form4Example2" class="form-control" />
+                            <label class="form-label" for="form4Example2">New Price</label>
+                        </div>
+
+                        <!-- Product description input -->
+                        <div class="form-outline mb-4">
+                            <textarea name="product_desc" class="form-control" id="form4Example3" rows="4"><%= product[0].product_desc %></textarea>
+                            <label class="form-label" for="form4Example3">Product Description</label>
+                        </div>
+
+                        <label for="customFile">Upload Prodcut Image</label>
+                        <input name="product_image" type="file" class="form-control" id="customFile" required/>
+
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-warning btn-block my-4">Update</button>
+                    </form>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+
+
+        <%- include('../../partials/footer.ejs') %>
+
+            </body>
+
+            </html>

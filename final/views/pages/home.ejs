@@ -1,0 +1,340 @@
+<%- include('../partials/header/head.ejs') %>
+
+    <div class="container-fluid" style="background-color: #eee;">
+        <div class="container py-5">
+
+            <div class="c_slider py-5 rounded">
+                <style>
+                    .glowing-text {
+            display: flex;
+            justify-content: center;
+        }
+
+        .glowing-text h2 {
+            color: #333333;
+            font-size: 4rem;
+            font-weight: 500;
+        }
+
+        @media screen and (max-width: 600px) {
+            .glowing-text h2{
+                font-size: 2rem;
+            }
+        }
+
+        h2 span {
+            animation: glowing 1s linear infinite;
+        }
+
+        h2 span:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        h2 span:nth-child(3) {
+            animation-delay: 0.8s;
+        }
+
+        @keyframes glowing {
+
+            0%,
+            80% {
+                text-shadow: none;
+                color: #333333;
+            }
+
+            100% {
+                color: #ffffff;
+                text-shadow: 0 0 10px #ffffff,
+                    0 0 20px #ffffff,
+                    0 0 40px #ffffff,
+                    0 0 80px #ffffff,
+                    0 0 120px #ffffff,
+                    0 0 160px #ffffff;
+
+            }
+        }
+                </style>
+                 <div class="glowing-text" style="background-color: #111;">
+                    <h2>
+                        <span>
+                            Top
+                        </span>
+            
+                        <span>
+                           Products
+                        </span>
+                    </h2>
+                </div>
+            
+                <hr class="text-light">
+
+                <div class="row">
+                    <% if(topSales.length==0){ %>
+                        <h4 class="text-center text-muted">Their is no product</h4>
+                        <% }else { %>
+
+                            <% for(let i = 0; i< topSales.length; i++) {%>
+                                <div class="col-lg-3 col-md-4 col-sm-6 mb-4 py-3">
+                                    <div class="card h-100">
+
+                                        <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                                            data-mdb-ripple-color="light">
+                                            <% if(topSales[i].product_image){ %>
+                                                <img class="w-100" height="200px" src="<%= topSales[i].product_image %>" alt="<%= topSales[i].product_name %>">
+                                                <% } else {%>
+                                                    <img src="/uploads/no_preview.png"
+                                                    class="w-100" height="200px"  alt="<%= topSales[i].product_name %>"/>
+                                                <% }%>
+                                          
+                                            <a href="/product/<%= topSales[i].slug %>">
+                                                <div class="mask">
+                                                    <div
+                                                        class="d-flex justify-content-start align-items-end h-100">
+                                                        <h5><span class="badge bg-success ms-2">
+                                                                <%= topSales[i].category %>
+                                                            </span>
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                                <div class="hover-overlay">
+                                                    <div class="mask"
+                                                        style="background-color: rgba(251, 251, 251, 0.15);">
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <p class="small fw-bold">
+                                                    <%= topSales[i].new_price %>
+                                                        TK
+                                                </p>
+                                                <p class="small text-danger"><s>TK <%= topSales[i].old_price
+                                                            %></s></p>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <p class="mb-0  d-block text-start">
+                                                    <%= topSales[i].product_name %>
+                                                </p>
+
+                                            </div>
+
+                                            <div class="d-flex justify-content-center mb-2">
+                                                <a class="btn btn-primary ban"
+                                                    href="/order/<%= topSales[i].id %> ">অর্ডার করুন</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <% }%>
+                      <% } %>
+                      
+            </div>
+
+            </div>
+
+            <section>
+                <div class="text-center container py-5">
+                    <h4 class="mt-4 mb-5"><strong>Featured Products</strong></h4>
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div class="row">
+                                <% if(latest_products.length==0){ %>
+                                    <h4 class="text-center text-muted">Their is no product</h4>
+                                    <% }else { %>
+
+                                        <% for(let l_product of latest_products) {%>
+                                            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                                <div class="card h-100">
+
+                                                    <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                                                        data-mdb-ripple-color="light">
+                                                        <% if(l_product.product_image){ %>
+                                                            <img class="w-100" height="200px" src="<%= l_product.product_image %>" alt="<%= l_product.product_name %>">
+                                                            <% } else {%>
+                                                                <img src="/uploads/no_preview.png"
+                                                                class="w-100" height="200px"  alt="<%= l_product.product_name %>"/>
+                                                            <% }%>
+                                                      
+                                                        <a href="/product/<%= l_product.slug %>">
+                                                            <div class="mask">
+                                                                <div
+                                                                    class="d-flex justify-content-start align-items-end h-100">
+                                                                    <h5><span class="badge bg-success ms-2">
+                                                                            <%= l_product.category %>
+                                                                        </span>
+                                                                    </h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="hover-overlay">
+                                                                <div class="mask"
+                                                                    style="background-color: rgba(251, 251, 251, 0.15);">
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="d-flex justify-content-between">
+                                                            <p class="small fw-bold">
+                                                                <%= l_product.new_price %>
+                                                                    TK
+                                                            </p>
+                                                            <p class="small text-danger"><s>TK <%= l_product.old_price
+                                                                        %></s></p>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <p class="mb-0  d-block text-start">
+                                                                <%= l_product.product_name %>
+                                                            </p>
+
+                                                        </div>
+
+                                                        <div class="d-flex justify-content-center mb-2">
+                                                            <a class="btn btn-primary ban"
+                                                                href="/order/<%= l_product.id %> ">অর্ডার করুন</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <% }%>
+                                            <div class="text-center d-flex justify-content-center">
+                                                <a href="/product/category/<%= latest_products[0].category %> " class="link border border-muted px-5 py-2">See More</a>
+                                            </div> 
+                                  <% } %>
+                                  
+                        </div>
+
+                        </div>
+
+                        <div class="col-lg-3">
+
+                            <div class="shadow-sm text-dark" style="background-color: #fff;  margin: 0 auto;">
+                                <ul class="list-group" style="margin: 0;">
+                                    <li
+                                        class="list-group-item d-flex justify-content-center align-items-center green  rounded-0">
+                                        Category
+                                    </li>
+
+                                    <% if(categories.length===0){ %>
+                                        <p>No category found</p>
+                                        <% }else{ %>
+                                            <% for(let cat of categories){ %>
+                                                <a class="text-dark" href="/product/category/<%= cat.category %> ">
+                                                    <li
+                                                        class="list-group-item  d-flex justify-content-between align-items-center">
+                                                        <%= cat.category %>
+                                                            <span class="badge green rounded-pill bg-primary">
+                                                                <%= cat.products%>
+                                                            </span>
+                                                    </li>
+                                                </a>
+                                            <% } %>
+                                     <% } %>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </section>
+
+            <section>
+
+                <% if(categories===0){ %>
+                    <h4 class="text-center text-muted">No Categories Found</h4>
+                    <% }else{%>
+                        <% for(let cat of categories){ %>
+                            <div class="text-center container py-2">
+                                <h4 class="mt-4 mb-3"><strong>
+                                        <%= cat.category %>
+                                    </strong></h4>
+                                <hr>
+
+                                <div class="row">
+                                <% if(cat.products.length==0){ %>
+                                    <h4 class="text-center text-muted">Their is no product in this category</h4>
+                                    <% }else{%>
+                                       
+                                        <% for(let product of products){ %>
+                                    <% if(cat.category == product.category){ %> 
+                                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 mb-4">
+                                            <div class="card h-100">
+                                                <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                                                    data-mdb-ripple-color="light">
+                                                    <% if(product.product_image){ %>
+                                                        <img class="w-100" height="220px" src="<%= product.product_image %>" alt="<%= product.product_name %>">
+                                                        <% } else {%>
+                                                            <img src="/uploads/no_preview.png"
+                                                            class="w-100" height="220px"  alt="<%= product.product_name %>"/>
+                                                        <% }%>
+                                                   
+
+                                                    <a href="/product/<%= product.slug %>">
+                                                        <div class="mask">
+                                                            <div class="d-flex justify-content-start align-items-end h-100">
+                                                                <h5><span class="badge bg-warning ms-2">
+                                                                        <%= product.category %>
+                                                                    </span>
+                                                                </h5>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hover-overlay">
+                                                            <div class="mask"
+                                                                style="background-color: rgba(251, 251, 251, 0.15);">
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="d-flex justify-content-between">
+                                                        <p class="small fw-bold">
+                                                            <%= product.new_price %> TK
+                                                        </p>
+                                                        <p class="small text-danger"><s>TK <%= product.old_price %></s></p>
+                                                    </div>
+                                            
+                                                    <div class="mb-3">
+                                                        <p class="mb-0  d-block text-start">
+                                                            <%= product.product_name %>
+                                                        </p>
+                                                    </div>
+                                            
+                                                    <div class="d-flex justify-content-center mb-2">
+                                                        <a href="/order/<%=product.id %> " class="btn btn-primary ban">অর্ডার করুন</a>
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                        </div>
+                                        <% } %>
+                                        <% } %>
+                                     <% }%>
+                                    </div>
+                            </div>
+
+                            <div class="text-center d-flex justify-content-center">
+                                <a href="/product/category/<%= cat.category %> " class="link border border-muted px-5 py-2">See More</a>
+                            </div>
+
+                            <% } %>
+                      <% }%>
+
+            </section>
+
+
+
+        </div>
+    </div>
+
+    <%- include('../partials/footer.ejs') %>
+        </body>
+
+        </html>

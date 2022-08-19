@@ -1,0 +1,87 @@
+<%- include('../../partials/header/head.ejs') %>
+
+    <div class="container-fluid py-5" style="background-color: #eee;">
+        <div class="container">
+            <h3 class="text-center">Products of <span class="text-success"><%= categoriesProduct[0].category %></span> category </h3>
+            <hr>
+
+            <div class="row">
+                <% if(categoriesProduct.length==0){ %>
+                    <h4 class="text-center text-muted">Their is no product in this category</h4>
+                    <% }else{%>
+                        
+                        <% for(let i = 0; i < categoriesProduct.length; i++){ %>
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="card h-100">
+                                <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                                    data-mdb-ripple-color="light">
+                                    <% if(categoriesProduct[i].product_image){ %>
+                                        <img class="w-100" height="220px" src="<%= categoriesProduct[i].product_image %>" alt="<%= categoriesProduct[i].product_name %>">
+                                        <% } else {%>
+                                            <img src="/uploads/no_preview.png"
+                                            class="w-100" height="220px"  alt="<%= categoriesProduct[i].product_name %>"/>
+                                        <% }%>
+                                    <a href="/product/<%= categoriesProduct[i].slug%>">
+                                        <div class="mask">
+                                            <div class="d-flex justify-content-start align-items-end h-100">
+                                                <h5><span class="badge bg-warning ms-2">
+                                                        <%= categoriesProduct[i].category %>
+                                                    </span>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <div class="hover-overlay">
+                                            <div class="mask"
+                                                style="background-color: rgba(251, 251, 251, 0.15);">
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="small fw-bold">
+                                            <%= categoriesProduct[i].new_price %> TK
+                                        </p>
+                                        <p class="small text-danger"><s>TK <%= categoriesProduct[i].old_price %></s></p>
+                                    </div>
+                            
+                                    <div class="mb-3">
+                                        <span class="mb-0 text-start">
+                                            <%= categoriesProduct[i].product_name %>
+                                        </span>
+                                    </div>
+                            
+                                    <div class="d-flex justify-content-center mb-2">
+                                        <a href="/order/<%=categoriesProduct[i].id %>" class="btn btn-primary ban">অর্ডার করুন</a>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                        <% } %>
+
+                        <div class="d-flex justify-content-center py-5">
+                            <nav aria-label="...">
+                                <ul class="pagination">
+                                  <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>"  >
+                                    <a  href="/product/category/<%=categoriesProduct[0].category%>?page=<%=currentPage-1 %>" class="page-link" >Previous</a>
+                                  </li>
+                                  <% for(let i=0; i<= totalPage; i++) {%> 
+                                    <li class="page-item  <%= currentPage == i+1 ? "active" : "" %> "><a class="page-link" href="/product/category/<%=categoriesProduct[0].category%>?page=<%=i+1 %> "><%= i+1 %> </a></li>
+                                  <% }%> 
+                                  <li class="page-item <%= currentPage >= totalPage ? 'disabled' : '' %>"  >
+                                    <a class="page-link" href="/product/category/<%=categoriesProduct[0].category%>?page=<%=currentPage+1 %>">Next</a>
+                                  </li>
+                                </ul>
+                              </nav>
+                          </div>
+                        
+                     <% }%>
+                    </div>
+
+                    
+        </div>
+    </div>
+    
+<%- include('../../partials/footer.ejs')  %>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<div class="card h-100">
+    <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+        data-mdb-ripple-color="light">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/2.webp"
+            class="w-100" />
+        <a href="/product/<%= product._id %>">
+            <div class="mask">
+                <div class="d-flex justify-content-start align-items-end h-100">
+                    <h5><span class="badge bg-warning ms-2">
+                            <%= product.category %>
+                        </span>
+                    </h5>
+                </div>
+            </div>
+            <div class="hover-overlay">
+                <div class="mask"
+                    style="background-color: rgba(251, 251, 251, 0.15);">
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <p class="small fw-bold">
+                <%= product.new_price %> TK
+            </p>
+            <p class="small text-danger"><s>TK <%= product.old_price %></s></p>
+        </div>
+
+        <div class="mb-3">
+            <span class="mb-0 text-start">
+                <%= product.product_name %>
+            </span>
+        </div>
+
+        <div class="d-flex justify-content-center mb-2">
+            <button class="btn btn-primary">Buy Now</button>
+        </div>
+    </div>
+</div>

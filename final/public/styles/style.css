@@ -1,0 +1,8 @@
+@font-face {
+    font-family: "bangla";
+    src: url("../font/Bangla.ttf");
+}
+.ban{
+    font-family: bangla;
+    font-size: 1rem;
+}

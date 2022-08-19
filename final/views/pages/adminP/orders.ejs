@@ -1,0 +1,76 @@
+<%- include('adminHeader.ejs') %>
+
+    <div class="container-fluid">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-3 col-md-4">
+                    <%- include('./sidebarAdmin') %> 
+                </div>
+
+                <div class="col-lg-9 col-md-8  mt-4">
+                 
+                   <% if(orders.length == 0) {%> 
+                    <h4 class="text-center text-danger">No data available right now</h4>
+                   <% }else{%> 
+                    <table class="table align-middle mb-0 bg-white">
+                        <thead class="bg-light table-dark">
+                          <tr>
+                            <th>Name</th>
+                            <th>Product Name</th>
+                            <th>Product Price</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-striped">
+                          
+                            <% for (let order of orders){ %> 
+                                <tr>
+                                    <td>
+                                      <div class="d-flex align-items-center">
+                                        <img
+                                            src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                                            alt=""
+                                            style="width: 45px; height: 45px"
+                                            class="rounded-circle"
+                                            />
+                                        <div class="ms-3">
+                                          <p class="fw-bold mb-1"><%= order.customer_name %>  </p>
+                                          <p class="text-muted mb-0"><%= order.phone %>  </p>
+                                          <p class="text-muted mb-0"><%= order.email %> </p>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <p class="fw-normal mb-1"><%= order.product_name %></p>
+                                    </td>
+                                   
+                                    <td class="fw-bold"><%= order.product_price %> TK </td>
+                                    <td>
+                                        <span class="badge <%= order.status == 'success' ? 'badge-success' : 'badge-danger'  %>  rounded-pill d-inline"><%= order.status %></span>
+                                      </td>
+                                    <td>
+                                      <% if(order.status == "pending"){ %> 
+                                        <a href="/order/confirm/<%= order._id %>" class="btn btn-sm btn-success">Confirm</a>
+                                      <% }else{ %> 
+                                        <span>Confirmd</span>
+                                      <% } %> 
+                                    </td>
+                                  </tr>
+                            <% } %> 
+
+                        </tbody>
+                      </table>
+                   <% }%> 
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <%- include('../../partials/footer.ejs') %>
+
+        </body>
+
+        </html>

@@ -1,0 +1,19 @@
+
+<%- include('../../partials/header/head.ejs') %>
+<div class="container-fluid"  style="height: 50vh;" >
+    <div class="container py-5">
+        <div  class=" w-100 p-4 d-flex justify-content-center pb-4">
+            <form action="/order/track" method="post" >
+                <p class="text-center mb-4">Please enter your order id to show your order status.</p>
+                <!-- Name input -->
+                <div class="form-outline mb-4">
+                    <input name="order_id" type="text"  class="form-control" />
+                    <label class="form-label" for="form4Example1">Order Id</label>
+                </div>
+                <!-- Submit button -->
+                <button id="submitBtn" class="btn btn-primary btn-block mb-4">Track My Order</button>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include('../../partials/footer.ejs') %>

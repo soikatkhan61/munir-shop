@@ -1,0 +1,106 @@
+<%- include('../../partials/header.ejs') %> 
+
+   
+<%- include('../../partials/sidebar.ejs') %> 
+
+<div class="container-fluid">
+  <div class="container py-5">
+      <h2 class="text-primary text-center">Add Product</h2>
+      <div class="add-product-form w-100 p-4 d-flex justify-content-center pb-4">
+
+         
+      <div class="card py-4 px-5 shadow">
+        <form action="/admin/add-product" method="post" enctype="multipart/form-data">
+          <!-- Name input -->
+          <div class="form-outline mb-4">
+           <input name="product_name"  type="text" id="form4Example1"  class="form-control" value="<%= value.product_name ? value.product_name : '' %>"/>
+           <label class="form-label" for="form4Example1">Product Name</label>
+         </div>
+ 
+         <div class="form-outline mb-4">
+           <input name="slug"  type="text" id="form4Example1"  class="form-control  <%= slugError ? 'is-invalid' : '' %>" value="<%= value.slug? value.slug : '' %>"/>
+           <label class="form-label" for="form4Example1">Link</label>
+           <div class="invalid-feedback">
+             <%= slugError %>
+         </div>
+         </div>
+           <div class="mb-4">
+             <script>
+               function update() {
+                   var d = document.getElementById('country');
+                   var dText = d.options[d.selectedIndex].text;
+                   document.getElementById('result').value = dText
+               }
+           </script>
+ 
+           <select id="country" class="py-2 px-4" onchange="update();" style="width: 100%; outline: black">
+             <option class="py-2 px-5" value=" none">Category</option>
+             
+             <% if(categories.length == 0){ %> 
+               <option class="py-2 px-5">No category Found</option>
+             <% }else{ %> 
+               <% for(let cat of categories){ %> 
+                 <option <%= value.category === cat.category ? "selected" : "" %>    class="py-2 px-5" value="<%= cat.category %>"> <%= cat.category %> </option>
+               <% } %> 
+             <% } %> 
+            
+           </select>
+           <input  id="result" name="category" class="d-none" value="<%= category ? category : "" %>">
+         
+           </div>
+           <!-- old price input -->
+           <div class="form-outline mb-4">
+             <input name="old_price" type="number" id="x" class="form-control <%= error.old_price || customError ? 'is-invalid' : '' %>"  value="<%= value.old_price ? value.old_price : '' %>"/>
+             <label class="form-label" for="x">Old Price</label>
+             <div class="invalid-feedback">
+               <% if(error.old_price){ %>
+                 <%= error.old_price %> 
+               <% }else if(customError){ %>
+                 <%=customError %> 
+               <% } %>
+           </div>
+           </div>
+ 
+            <!-- new price input -->
+            <div class="form-outline mb-4">
+               <input name="new_price" type="number" id="form4Example2" class="form-control  <%= error.new_price ? 'is-invalid' : '' %>" value="<%= value.new_price ? value.new_price : '' %>"/>
+               <label class="form-label" for="form4Example2">New Price</label>
+               <div class="invalid-feedback">
+                 <%= error.new_price %>
+             </div>
+             </div>
+         
+           <!-- Product description input -->
+           <div class="form-outline mb-4">
+             <textarea name="product_desc" class="form-control  <%= error.product_desc ? 'is-invalid' : '' %>" id="form4Example3" rows="6"><%= value.product_desc ? value.product_desc : '' %></textarea>
+             <label class="form-label" for="form4Example3">Product Description</label>
+             <div class="invalid-feedback">
+               <%= error.product_desc %>
+           </div>
+           </div>
+           
+           <label for="customFile">Upload Prodcut Image</label>
+           <div class="form-outline">
+             <input required name="product_image" type="file" class="form-control <%= error.product_image ? 'is-invalid' : '' %>" id="customFile" />
+             <div class="invalid-feedback">
+               Image must be selected
+             </div>
+           </div>
+          
+            <p>Max file size: 1 MB</p>
+           <!-- Submit button -->
+           <button type="submit" class="btn btn-success justify-content-center"> Upload Product </button>
+         </form>
+      </div>
+
+      </div>
+
+  </div>
+</div>
+     
+
+    <%- include('../../partials/footer.ejs') %> 
+
+</body>
+
+</html>

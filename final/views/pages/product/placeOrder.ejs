@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.3.0/mdb.min.css" rel="stylesheet" />
+
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="/styles/auth.css">
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/alert.css">
+
+    <title><%= "Place order - "+ product.product_name %></title>
+</head>
+
+<body>
+
+    <%- include('../../partials/navbar.ejs')  %>
+        <%- include('../../partials/alert.ejs') %>
+
+            <div class="container-fluid">
+                <div class="container py-5">
+
+                    <div class="row">
+                        <div class="col-md-8 mb-4">
+                          <div class="card mb-4">
+                            <div class="card-header py-3">
+                              <h5 class="mb-0">Biling details</h5>
+                            </div>
+                            <p class="text-danger text-center mt-2 mb-0">স্টার (*)  চিহ্নিত ঘর গুলো অবশ্যই পূরণ করতে হবে </p>
+                            <div class="card-body">
+                              <form action="/order/place-order/<%= product.id %>" method="post">
+                                <!-- 2 column grid layout with text inputs for the first and last names -->
+                                <input type="text" name="product_id" value="<%= product.id %>" hidden>
+                                
+                                <div class="row mb-4">
+                                  <div class="col">
+                                    <div class="form-outline">
+                                      <input name="f_name" type="text" id="form7Example1" class="form-control" required/>
+                                      <label  class="form-label" for="form7Example1">নাম *</label>
+                                    </div>
+                                  </div>
+                                </div>
+
+                      
+                                <!-- Text input -->
+                                <div class="form-outline mb-4">
+                                  <input name = "address" type="text" id="form7Example4" class="form-control" required/>
+                                  <label class="form-label" for="form7Example4">ঠিকানা *</label>
+                                </div>
+                      
+                          
+                                <!-- Number input -->
+                                <div class="form-outline mb-4">
+                                  <input name="phone" type="text" id="form7Example6" class="form-control" required/>
+                                  <label class="form-label" for="form7Example6">ফোন নাম্বার  *</label>
+                                </div>
+                      
+                            <div class="form-outline mb-4">
+                                  <input name="email" type="email" value="mh4863327@gmail.com" hidden id="xyz" class="form-control" required/>
+                                
+                                </div> 
+                                
+                                <!-- Message input -->
+                                <div class="form-outline mb-4">
+                                  <textarea name="message" class="form-control" id="form7Example7" rows="4"></textarea>
+                                  <label class="form-label" for="form7Example7">মন্তব্য </label>
+                                </div>
+                      
+                               
+                             
+                            </div>
+                          </div>
+                        </div>
+                      
+                        <div class="col-md-4 mb-4">
+                          <div class="card mb-4">
+                            <div class="card-header py-3">
+                              <h5 class="mb-0">Summary</h5>
+                            </div>
+                            <div class="card-body">
+                              <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                  পণ্যের নাম 
+                                    <span class="fw-bold"><%= product.product_name  %> </span>
+                                    <input name="product_name" value="<%= product.product_name  %> " type="text" class="d-none">
+                                  </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                  পণ্যের দাম 
+                                  <span><%= product.new_price  %> TK</span>
+                                  <input name="product_price" value="<%= product.new_price  %>" type="number" class="d-none">
+                                </li>
+                                <hr>
+                               
+                                <% if(delivery_charge){ %> 
+                                  <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                    ডেলিভারি চার্জ
+                                    <span><%= delivery_charge  %> TK</span>
+                                    <input type="number" name="delivery_charge" value="<%= delivery_charge %>" hidden>
+                                  </li>
+              
+                                <% }else{ %> 
+                                  <div class="form-check">
+                                    <input required class="form-check-input" type="radio" name="delivery_charge" id="flexRadioDefault1" value="50" />
+                                    <label class="form-check-label ban" for="flexRadioDefault1"> ঢাকার ভিতরে ডেলিভারি চার্জ ৫০ টাকা </label>
+                                    
+                                  </div>
+                
+                                  <!-- Default checked radio -->
+                                  <div class="form-check mb-4">
+                                    <input required class="form-check-input" type="radio" name="delivery_charge" id="flexRadioDefault2" value="100"
+                                       />
+                                    <label class="form-check-label ban" for="flexRadioDefault2"> ঢাকার বাইরে  ডেলিভারি চার্জ ১০০ টাকা  </label>
+                                  </div>
+                                <% } %> 
+
+                                <hr>
+                                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                  <div>
+                                    <strong>মোট টাকা</strong>
+                                  </div>
+                                  <span><strong><%= product.new_price  %> TK</strong></span>
+                                </li>
+                              </ul>
+
+  
+                             
+                      
+                              <button type="submit" class="btn btn-success btn-lg btn-block ban">
+                                অর্ডার নিশ্চিত করুন
+                              </button>
+                            </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                </div>
+            </div>
+
+
+            <%- include('../../partials/footer.ejs') %>
+
+</body>
+
+</html>
